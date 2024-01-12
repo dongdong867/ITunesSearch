@@ -14,9 +14,9 @@ struct MusicCardView: View {
         HStack(spacing: 20) {
             coverImage
             cardInfo
-            Spacer()
         }
-        .padding([.horizontal], 40)
+        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+        .padding()
     }
     
     var coverImage: some View {
