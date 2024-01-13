@@ -1,5 +1,5 @@
 //
-//  MusicSearchListView.swift
+//  MusicSearchView.swift
 //  ITunesSearch
 //
 //  Created by Dong on 2024/1/13.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MusicSearchListView: View {
+struct MusicSearchView: View {
     @State var musicList: [Music]
     
     var body: some View {
@@ -16,10 +16,10 @@ struct MusicSearchListView: View {
                 MusicCardView(music: music)
             }
         }
-        
     }
+    
 }
 
 #Preview {
-    MusicSearchListView(musicList: Music.sampleList)
+    MusicSearchView(musicList: Music.sampleList)
 }
