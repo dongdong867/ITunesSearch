@@ -16,7 +16,6 @@ struct MusicCardView: View {
             cardInfo
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
     }
     
     var coverImage: some View {
@@ -33,7 +32,7 @@ struct MusicCardView: View {
             }
             
         }
-        .frame(width: 60, height: 60)
+        .frame(width: 50, height: 50)
         .background(.gray.opacity(0.3))
         .clipShape(.rect(cornerRadius: 8))
         .scaledToFit()
