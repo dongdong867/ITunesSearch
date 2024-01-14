@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct MusicSearchView: View {
-    @State var musicList: [Music]
-    @State var query: String = ""
+    @ObservedObject var musicSearch: MusicSearch
     
     var body: some View {
         NavigationStack {
-            List(musicList) { music in
+            List(musicSearch.result) { music in
                 NavigationLink(destination: Text(music.trackName)) {
                     MusicCardView(music: music)
                 }
@@ -21,11 +20,11 @@ struct MusicSearchView: View {
             .navigationTitle("Search")
             .scrollContentBackground(.hidden)
         }
-        .searchable(text: $query)
+        .searchable(text: $musicSearch.query, prompt: "Search for music")
     }
     
 }
 
 #Preview {
-    MusicSearchView(musicList: Music.sampleList)
+    MusicSearchView(musicSearch: MusicSearch())
 }
