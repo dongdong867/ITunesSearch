@@ -9,13 +9,19 @@ import SwiftUI
 
 struct MusicSearchView: View {
     @State var musicList: [Music]
+    @State var query: String = ""
     
     var body: some View {
         NavigationStack {
             List(musicList) { music in
-                MusicCardView(music: music)
+                NavigationLink(destination: Text(music.trackName)) {
+                    MusicCardView(music: music)
+                }
             }
+            .navigationTitle("Search")
+            .scrollContentBackground(.hidden)
         }
+        .searchable(text: $query)
     }
     
 }
