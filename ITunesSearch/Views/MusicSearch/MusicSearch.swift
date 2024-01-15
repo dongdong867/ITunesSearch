@@ -33,7 +33,7 @@ final class MusicSearch: ObservableObject {
     
     func searchMusic(by query: String, page: Int = 1) -> Future<Void, Error> {
         return Future<Void, Error> { [weak self] promise in
-            let endpoint = "https://itunes.apple.com/search?term=\(query)&media=music&offset=\((page-1)*10)&limit=\(page*10)"
+            let endpoint = "https://itunes.apple.com/search?term=\(query)&media=music&offset=\((page-1)*10)&limit=10"
             
             guard let url = URL(string: endpoint) else {
                 self?.state = .error(ApiError.invalidURL)
