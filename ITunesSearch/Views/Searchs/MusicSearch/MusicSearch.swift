@@ -20,12 +20,11 @@ final class MusicSearch: Search<Music>, ObservableObject {
         querySubscription = $query
             .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
             .sink { text in
+                self.clearResult()
                 if(!text.isEmpty) {
-                    self.clearResult()
                     self.setState(.loading)
                     self.search(with: self.endpoint, by: self.query)
                 } else {
-                    self.clearResult()
                     self.setState(.empty)
                 }
             }
