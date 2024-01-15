@@ -7,11 +7,16 @@
 
 import Foundation
 
-enum SearchState {
+enum SearchState: Equatable {
+    
     case empty
     case good
-    case error(Error)
+    case error(ApiError)
     case loading
+    
+    static func == (lhs: SearchState, rhs: SearchState) -> Bool {
+        lhs.describe() == rhs.describe()
+    }
 }
 
 extension SearchState {
