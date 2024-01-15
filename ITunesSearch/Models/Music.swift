@@ -15,14 +15,6 @@ struct Music: Identifiable, Codable {
     let releaseDate: Date
     
     var id: Int { trackId }
-    
-    func getReleaseDate() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "zh-Hant-CN")
-        dateFormatter.dateFormat = "yyyy/MM/dd"
-        
-        return dateFormatter.string(from: releaseDate)
-    }
 }
 
 
