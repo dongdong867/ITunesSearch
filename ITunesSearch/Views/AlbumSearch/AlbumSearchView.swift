@@ -9,14 +9,13 @@ import SwiftUI
 
 struct AlbumSearchView: View {
     
-    @State var albums: [Album]
-    @State var query = ""
+    @StateObject var albumSearch: AlbumSearch
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVGrid(columns: [GridItem(spacing: 20), GridItem()]) {
-                    ForEach(albums) { album in
+                    ForEach(albumSearch.result) { album in
                         NavigationLink(destination: Text(album.collectionName)) {
                             AlbumCardView(album: album)
                         }
@@ -26,13 +25,13 @@ struct AlbumSearchView: View {
                 .navigationTitle("Album")
             }
         }
-        .searchable(text: $query, prompt: "Search for album")
+        .searchable(text: $albumSearch.query, prompt: "Search for album")
     }
     
 }
 
 #Preview {
     
-    AlbumSearchView(albums: Album.sampleList)
+    AlbumSearchView(albumSearch: AlbumSearch())
     
 }
