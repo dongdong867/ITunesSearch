@@ -1,5 +1,5 @@
 //
-//  Response.swift
+//  SearchResponse.swift
 //  ITunesSearch
 //
 //  Created by Dong on 2024/1/14.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Response<T>: Codable where T: Codable {
+struct SearchResponse<T>: Codable where T: Codable {
     
     private enum RootCodingKeys: String, CodingKey {
         case results

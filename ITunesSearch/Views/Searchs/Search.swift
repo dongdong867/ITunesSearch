@@ -37,7 +37,7 @@ class Search<T> where T: Codable {
                     do {
                         let decoder = JSONDecoder()
                         decoder.dateDecodingStrategy = .iso8601
-                        let rawData = try decoder.decode(Response<T>.self, from: data)
+                        let rawData = try decoder.decode(SearchResponse<T>.self, from: data)
                         
                         self?.result.append(contentsOf: rawData.response)
                         self?.state = .good
