@@ -1,5 +1,5 @@
 //
-//  MusicResponse.swift
+//  Response.swift
 //  ITunesSearch
 //
 //  Created by Dong on 2024/1/14.
@@ -7,20 +7,20 @@
 
 import Foundation
 
-struct MusicResponse: Codable {
+struct Response<T>: Codable where T: Codable {
     
     private enum RootCodingKeys: String, CodingKey {
         case results
     }
     
-    private(set) var musics: [Music] = []
+    private(set) var response: [T] = []
     
     init(from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: RootCodingKeys.self)
-        var musicsContainer = try rootContainer.nestedUnkeyedContainer(forKey: .results)
+        var responseContainer = try rootContainer.nestedUnkeyedContainer(forKey: .results)
         
-        while !musicsContainer.isAtEnd {
-            musics.append(try musicsContainer.decode(Music.self))
+        while !responseContainer.isAtEnd {
+            response.append(try responseContainer.decode(T.self))
         }
     }
     

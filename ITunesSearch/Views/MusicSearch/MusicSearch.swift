@@ -45,9 +45,9 @@ final class MusicSearch: ObservableObject {
                     do {
                         let decoder = JSONDecoder()
                         decoder.dateDecodingStrategy = .iso8601
-                        let rawData = try decoder.decode(MusicResponse.self, from: data)
+                        let rawData = try decoder.decode(Response<Music>.self, from: data)
                         
-                        self?.result.append(contentsOf: rawData.musics)
+                        self?.result.append(contentsOf: rawData.response)
                         self?.state = .good
                     } catch {
                         self?.state = .error(ApiError.invalidData)
