@@ -13,7 +13,7 @@ final class AlbumSearch: Search<Album>, ObservableObject {
     @Published var query: String = ""
     
     private var querySubscription: AnyCancellable?
-    private let endpoint = "https://itunes.apple.com/search?media=music&entity=album&limit=10"
+    private let endpoint = "https://itunes.apple.com/search?media=music&entity=album&country=tw&limit=10"
     
     override init() {
         super.init()
