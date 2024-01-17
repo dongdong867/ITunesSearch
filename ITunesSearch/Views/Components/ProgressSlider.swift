@@ -29,11 +29,11 @@ struct ProgressSlider: View {
             
             ZStack {
                 RoundedRectangle(cornerRadius: radius)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.gray.opacity(0.3))
                 
                 HStack {
                     RoundedRectangle(cornerRadius: radius)
-                        .foregroundStyle(.white.opacity(0.8))
+                        .foregroundStyle(.gray.opacity(0.6))
                         .frame(width: sliderValue + minValue)
                         .gesture(
                             DragGesture()
