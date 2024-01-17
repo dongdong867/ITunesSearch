@@ -18,15 +18,10 @@ struct MusicDetailView: View {
             albumCover
             nameInfo
             timeProgress
-            
             Spacer()
-            
             playStatus
-            
             Spacer()
-            
             volumeControl
-            
             Spacer()
         }
         .padding(40)
@@ -46,14 +41,20 @@ struct MusicDetailView: View {
             }
         }
         .clipShape(.rect(cornerRadius: 8))
+        .shadow(radius: 16, y: 5)
     }
     
     var nameInfo: some View {
         VStack(alignment: .leading) {
             Text(music.trackName)
+                .font(.title3)
+                .fontWeight(.bold)
             Text(music.artistName)
+                .font(.title3)
+                .fontWeight(.medium)
+                .foregroundStyle(.red)
         }
-        .padding()
+        .padding(.vertical)
     }
     
     var timeProgress: some View {
@@ -65,6 +66,10 @@ struct MusicDetailView: View {
                 Spacer()
                 Text("3:39")
             }
+            .font(.footnote)
+            .fontWeight(.medium)
+            .foregroundStyle(.gray.opacity(0.6))
+            .padding(.vertical, 4)
         }
     }
     
@@ -89,12 +94,15 @@ struct MusicDetailView: View {
     }
     
     var volumeControl: some View {
-        HStack {
-            Image(systemName: "volume.1.fill")
+        HStack(spacing: 16) {
+            Image(systemName: "volume.fill")
+            
             ProgressSlider(value: $sound)
                 .frame(maxWidth: .infinity, maxHeight: 10)
+            
             Image(systemName: "volume.3.fill")
         }
+        .foregroundStyle(.gray)
     }
 }
 
