@@ -29,7 +29,7 @@ struct ProgressSlider: View {
             
             ZStack {
                 RoundedRectangle(cornerRadius: radius)
-                    .foregroundStyle(.gray.opacity(0.3))
+                    .foregroundStyle(.gray.opacity(0.2))
                 
                 HStack {
                     RoundedRectangle(cornerRadius: radius)
