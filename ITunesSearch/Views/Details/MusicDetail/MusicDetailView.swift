@@ -10,8 +10,15 @@ import SwiftUI
 struct MusicDetailView: View {
     
     let music: Music
+    @ObservedObject var musicPlayer: MusicPlayer
+    @State var duration: String = "--:--"
     @State var value: Double = 0.6
     @State var sound: Double = 0.8
+    
+    init(music: Music) {
+        self.music = music
+        self.musicPlayer = MusicPlayer(audioURL: music.previewUrl)
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -62,9 +69,12 @@ struct MusicDetailView: View {
             ProgressSlider(value: $value)
                 .frame(maxWidth: .infinity, maxHeight: 10)
             HStack {
-                Text("2:26")
+                Text(musicPlayer.getCurrentTime())
                 Spacer()
-                Text("3:39")
+                Text(duration)
+                    .task {
+                        duration = await musicPlayer.getDuration()
+                    }
             }
             .font(.footnote)
             .fontWeight(.medium)
