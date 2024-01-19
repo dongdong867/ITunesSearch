@@ -31,6 +31,7 @@
 		F52374EF2B55E1590017925B /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = F52374EE2B55E1590017925B /* SwiftSoup */; };
 		F52374F52B5706A80017925B /* MusicDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52374F42B5706A80017925B /* MusicDetailView.swift */; };
 		F52374F82B5829D40017925B /* ProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52374F72B5829D40017925B /* ProgressSlider.swift */; };
+		F52374FA2B59A8320017925B /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52374F92B59A8320017925B /* MusicPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		F52374EB2B55CC5B0017925B /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		F52374F42B5706A80017925B /* MusicDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDetailView.swift; sourceTree = "<group>"; };
 		F52374F72B5829D40017925B /* ProgressSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSlider.swift; sourceTree = "<group>"; };
+		F52374F92B59A8320017925B /* MusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 				F52374C82B53D6EC0017925B /* Errors */,
 				F52374D22B5468F70017925B /* SearchState.swift */,
 				F52374D62B54838B0017925B /* ReleaseDate.swift */,
+				F52374F92B59A8320017925B /* MusicPlayer.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F52374FA2B59A8320017925B /* MusicPlayer.swift in Sources */,
 				F52374F82B5829D40017925B /* ProgressSlider.swift in Sources */,
 				F52374CA2B53D7130017925B /* ApiError.swift in Sources */,
 				F52374E82B55CBD70017925B /* ArtistSearchView.swift in Sources */,
