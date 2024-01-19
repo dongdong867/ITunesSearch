@@ -33,23 +33,7 @@ class MusicPlayer: ObservableObject {
         removeTimeObserver()
         status = .pause
     }
-    
-    func addTimeObserver() -> Void {
-        timeObserver = audioPlayer.addPeriodicTimeObserver(
-            forInterval: CMTime(seconds: 1, preferredTimescale: 1000),
-            queue: .main
-        ) { [weak self] time in
-            self?.currentTime = self?.formatTime(time.seconds.rounded()) ?? "--:--"
-        }
-    }
-    
-    func removeTimeObserver() -> Void {
-        guard let timeObserver = timeObserver else {
-            return
-        }
-        audioPlayer.removeTimeObserver(timeObserver)
-    }
-    
+        
     func getDuration() async -> String {
         guard let currentItem = audioPlayer.currentItem else { return "--:--" }
         var durationSeconds: TimeInterval
@@ -63,11 +47,21 @@ class MusicPlayer: ObservableObject {
         return formatTime(durationSeconds)
     }
     
-    func getCurrentTime() -> String {
-        guard let currentItem = audioPlayer.currentItem else { return "--:--"}
-        return formatTime(currentItem.currentTime().seconds.rounded())
+    private func addTimeObserver() -> Void {
+        timeObserver = audioPlayer.addPeriodicTimeObserver(
+            forInterval: CMTime(seconds: 1, preferredTimescale: 1000),
+            queue: .main
+        ) { [weak self] time in
+            self?.currentTime = self?.formatTime(time.seconds.rounded()) ?? "--:--"
+        }
     }
     
+    private func removeTimeObserver() -> Void {
+        guard let timeObserver = timeObserver else {
+            return
+        }
+        audioPlayer.removeTimeObserver(timeObserver)
+    }
     
     private func formatTime(_ time: TimeInterval) -> String {
         var hour: Int { Int(time / 3600) }
