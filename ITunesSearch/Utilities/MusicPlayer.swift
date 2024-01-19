@@ -11,7 +11,10 @@ import AVFoundation
 class MusicPlayer: ObservableObject {
     
     @Published var status: PlayerStatus = .pause
-    @Published var audioPlayer: AVPlayer
+    @Published var currentTime: String = "00:00"
+    
+    private var audioPlayer: AVPlayer
+    private var timeObserver: Any?
     
     init(audioURL: URL) {
         let playerItem = AVPlayerItem(url: audioURL)
@@ -21,12 +24,30 @@ class MusicPlayer: ObservableObject {
     
     func play() -> Void {
         audioPlayer.play()
+        addTimeObserver()
         status = .playing
     }
     
     func pause() -> Void {
         audioPlayer.pause()
+        removeTimeObserver()
         status = .pause
+    }
+    
+    func addTimeObserver() -> Void {
+        timeObserver = audioPlayer.addPeriodicTimeObserver(
+            forInterval: CMTime(seconds: 1, preferredTimescale: 1000),
+            queue: .main
+        ) { [weak self] time in
+            self?.currentTime = self?.formatTime(time.seconds.rounded()) ?? "--:--"
+        }
+    }
+    
+    func removeTimeObserver() -> Void {
+        guard let timeObserver = timeObserver else {
+            return
+        }
+        audioPlayer.removeTimeObserver(timeObserver)
     }
     
     func getDuration() async -> String {
