@@ -10,11 +10,23 @@ import AVFoundation
 
 class MusicPlayer: ObservableObject {
     
+    @Published var status: PlayerStatus = .pause
     @Published var audioPlayer: AVPlayer
     
     init(audioURL: URL) {
         let playerItem = AVPlayerItem(url: audioURL)
         audioPlayer = AVPlayer(playerItem: playerItem)
+        audioPlayer.volume = 0.1
+    }
+    
+    func play() -> Void {
+        audioPlayer.play()
+        status = .playing
+    }
+    
+    func pause() -> Void {
+        audioPlayer.pause()
+        status = .pause
     }
     
     func getDuration() async -> String {
@@ -44,5 +56,10 @@ class MusicPlayer: ObservableObject {
         return hour > 0
             ? String(format: "%d:%02d:%02d", hour, minute, second)
             : String(format: "%02d:%02d", minute, second)
+    }
+    
+    enum PlayerStatus {
+        case playing
+        case pause
     }
 }
