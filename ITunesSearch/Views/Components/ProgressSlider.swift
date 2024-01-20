@@ -12,6 +12,7 @@ struct ProgressSlider: View {
     @Binding var value: Double
     @State var lastCoordinateValue: CGFloat = 0.0
     
+    var onEditingChanged: (Double) -> Void
     var sliderRange: ClosedRange<Double> = 0...100
     
     var body: some View {
@@ -41,10 +42,6 @@ struct ProgressSlider: View {
                                     let width = value.translation.width
                                     var nextCoordinateValue = 0.0
                                     
-                                    print()
-                                    print("width: \(width)")
-                                    print()
-                                    
                                     if width > 0 {
                                         nextCoordinateValue = min(maxValue, lastCoordinateValue + width)
                                     } else {
@@ -55,6 +52,7 @@ struct ProgressSlider: View {
                                 }
                                 .onEnded { _ in
                                     lastCoordinateValue = sliderValue
+                                    onEditingChanged(value)
                                 }
                         )
                     Spacer()
