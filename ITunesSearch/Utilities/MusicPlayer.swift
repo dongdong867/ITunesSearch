@@ -6,53 +6,79 @@
 //
 
 import SwiftUI
+import Combine
 import AVFoundation
 
 class MusicPlayer: ObservableObject {
     
     @Published var status: PlayerStatus = .pause
-    @Published var currentTime: String = "00:00"
+    @Published var volume = AVAudioSession.sharedInstance().outputVolume
+    @Published var playedPercentage: Double = 0.0
+    @Published var currentTime = CMTime(seconds: 0.0, preferredTimescale: .max)
+    @Published var duration = CMTime(seconds: 0.0, preferredTimescale: .max)
     
     private var audioPlayer: AVPlayer
     private var timeObserver: Any?
     
+    
     init(audioURL: URL) {
         let playerItem = AVPlayerItem(url: audioURL)
         audioPlayer = AVPlayer(playerItem: playerItem)
-        audioPlayer.volume = 0.1
+        audioPlayer.volume = volume
+        Task {
+            var duration: CMTime
+            do {
+                guard let currentItem = audioPlayer.currentItem else { throw MusicPlayerError.currentItemNotFound }
+                duration = try await currentItem.asset.load(.duration)
+            } catch {
+                duration = CMTime(seconds: 0.0, preferredTimescale: .zero)
+            }
+            
+            self.duration = duration
+        }
+
+    }
+    
+    deinit {
+        guard let timeObserver = timeObserver else {
+            return
+        }
+        audioPlayer.removeTimeObserver(timeObserver)
     }
     
     func play() -> Void {
         audioPlayer.play()
-        addTimeObserver()
         status = .playing
+        addTimeObserver()
     }
     
     func pause() -> Void {
         audioPlayer.pause()
         removeTimeObserver()
-        status = .pause
     }
+    
+    func seek(to percentage: Double) async -> Void {
+        let time: CMTime = CMTime(seconds: percentage * duration.seconds.rounded(), preferredTimescale: .max)
         
-    func getDuration() async -> String {
-        guard let currentItem = audioPlayer.currentItem else { return "--:--" }
-        var durationSeconds: TimeInterval
-        
-        do {
-            durationSeconds = try await currentItem.asset.load(.duration).seconds.rounded()
-        } catch {
-            return "--:--"
-        }
-        
-        return formatTime(durationSeconds)
+        await audioPlayer.seek(to: time)
+        currentTime = time
+    }
+    
+    func setVolume(to volume: Float) -> Void {
+        audioPlayer.volume = volume
     }
     
     private func addTimeObserver() -> Void {
         timeObserver = audioPlayer.addPeriodicTimeObserver(
-            forInterval: CMTime(seconds: 1, preferredTimescale: 1000),
+            forInterval: CMTime(seconds: 1, preferredTimescale: 100),
             queue: .main
         ) { [weak self] time in
-            self?.currentTime = self?.formatTime(time.seconds.rounded()) ?? "--:--"
+            self?.currentTime = time
+            self?.playedPercentage = time.seconds / (self?.duration.seconds ?? 1)
+            
+            if time >= self?.duration ?? CMTime(seconds: 0, preferredTimescale: .max) {
+                self?.pause()
+            }
         }
     }
     
@@ -61,20 +87,12 @@ class MusicPlayer: ObservableObject {
             return
         }
         audioPlayer.removeTimeObserver(timeObserver)
+        self.status = .pause
     }
     
-    private func formatTime(_ time: TimeInterval) -> String {
-        var hour: Int { Int(time / 3600) }
-        var minute: Int { Int(time.truncatingRemainder(dividingBy: 3600) / 60) }
-        var second: Int { Int(time.truncatingRemainder(dividingBy: 60)) }
-        
-        return hour > 0
-            ? String(format: "%d:%02d:%02d", hour, minute, second)
-            : String(format: "%02d:%02d", minute, second)
-    }
-    
-    enum PlayerStatus {
-        case playing
-        case pause
+    enum PlayerStatus: String {
+        case playing = "playing"
+        case pause = "pause"
+        case loading = "loading"
     }
 }
