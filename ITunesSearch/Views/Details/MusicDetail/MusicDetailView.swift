@@ -11,13 +11,10 @@ struct MusicDetailView: View {
     
     let music: Music
     @ObservedObject var musicPlayer: MusicPlayer
-    @State var duration: String = "--:--"
-    @State var value: Double = 0.6
-    @State var sound: Double = 0.8
     
     init(music: Music) {
         self.music = music
-        self.musicPlayer = MusicPlayer(audioURL: music.previewUrl)
+        musicPlayer = MusicPlayer(audioURL: music.previewUrl)
     }
     
     var body: some View {
@@ -66,15 +63,16 @@ struct MusicDetailView: View {
     
     var timeProgress: some View {
         VStack {
-            ProgressSlider(value: $value)
+            ProgressSlider(value: $musicPlayer.playedPercentage, onEditingChanged: { newValue in
+                Task {
+                    await musicPlayer.seek(to: newValue)
+                }
+            })
                 .frame(maxWidth: .infinity, maxHeight: 10)
             HStack {
-                Text(musicPlayer.getCurrentTime())
+                Text(formatTime(musicPlayer.currentTime.seconds))
                 Spacer()
-                Text(duration)
-                    .task {
-                        duration = await musicPlayer.getDuration()
-                    }
+                Text(formatTime(musicPlayer.duration.seconds))
             }
             .font(.footnote)
             .fontWeight(.medium)
@@ -89,11 +87,7 @@ struct MusicDetailView: View {
                 .font(.largeTitle)
             
             Spacer()
-            
-            Image(systemName: "play.fill")
-                .resizable()
-                .scaledToFit()
-            
+            playButton
             Spacer()
             
             Image(systemName: "forward.fill")
@@ -103,16 +97,50 @@ struct MusicDetailView: View {
         .padding(.horizontal, 40)
     }
     
+    var playButton: some View {
+        switch musicPlayer.status {
+            case .playing:
+                Image(systemName: "pause.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .onTapGesture {
+                        musicPlayer.pause()
+                    }
+                
+            default:
+                Image(systemName: "play.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .onTapGesture {
+                        if musicPlayer.status == .pause { musicPlayer.play() }
+                    }
+        }
+    }
+    
     var volumeControl: some View {
         HStack(spacing: 16) {
             Image(systemName: "volume.fill")
             
-            ProgressSlider(value: $sound)
+            ProgressSlider(value: $musicPlayer.volume)
+                .onChange(of: musicPlayer.volume) { _, newValue in
+                    musicPlayer.setVolume(to: newValue)
+                }
                 .frame(maxWidth: .infinity, maxHeight: 10)
             
             Image(systemName: "volume.3.fill")
         }
         .foregroundStyle(.gray)
+    }
+    
+    
+    func formatTime(_ time: TimeInterval) -> String {
+        var hour: Int { Int(time / 3600) }
+        var minute: Int { Int(time.truncatingRemainder(dividingBy: 3600) / 60) }
+        var second: Int { Int(time.truncatingRemainder(dividingBy: 60)) }
+        
+        return hour > 0
+        ? String(format: "%d:%02d:%02d", hour, minute, second)
+        : String(format: "%02d:%02d", minute, second)
     }
 }
 
