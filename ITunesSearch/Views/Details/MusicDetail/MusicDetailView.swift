@@ -28,7 +28,7 @@ struct MusicDetailView: View {
             volumeControl
             Spacer()
         }
-        .padding(40)
+        .padding(.horizontal, 40)
     }
     
     var albumCover: some View {
