@@ -215,17 +215,9 @@
 		F52374F22B5706450017925B /* Details */ = {
 			isa = PBXGroup;
 			children = (
-				F52374F32B5706820017925B /* MusicDetail */,
-			);
-			path = Details;
-			sourceTree = "<group>";
-		};
-		F52374F32B5706820017925B /* MusicDetail */ = {
-			isa = PBXGroup;
-			children = (
 				F52374F42B5706A80017925B /* MusicDetailView.swift */,
 			);
-			path = MusicDetail;
+			path = Details;
 			sourceTree = "<group>";
 		};
 		F52374F62B5829930017925B /* Components */ = {
