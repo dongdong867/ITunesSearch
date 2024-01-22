@@ -16,7 +16,7 @@ struct MusicSearchView: View {
                 Text("No results.")
             } else {
                 List(musicSearch.result) { music in
-                    NavigationLink(destination: Text(music.trackName)) {
+                    NavigationLink(destination: MusicDetailView(music: music)) {
                         MusicCardView(music: music)
                     }
                 }
