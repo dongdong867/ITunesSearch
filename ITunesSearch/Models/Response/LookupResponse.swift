@@ -22,12 +22,10 @@ struct LookupResponse<T>: Codable where T: Codable {
     init(from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: RootCodingKeys.self)
         var responseContainer = try rootContainer.nestedUnkeyedContainer(forKey: .results)
-        
+        _ = try responseContainer.decode(ResultCodingKeys.self)
+
         while !responseContainer.isAtEnd {
-            let wrapperType: ResultCodingKeys = try responseContainer.decode(ResultCodingKeys.self)
-            if wrapperType.wrapperType != "artist" {
-                response.append(try responseContainer.decode(T.self))
-            }
+            response.append(try responseContainer.decode(T.self))
         }
     }
     
