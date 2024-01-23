@@ -16,9 +16,10 @@ struct ArtistSearchView: View {
             ScrollView {
                 LazyVGrid(columns: [GridItem(spacing: 20), GridItem()]) {
                     ForEach(artistSearch.result) { artist in
-                        NavigationLink(destination: Text(artist.artistName)) {
+                        NavigationLink(destination: ArtistDetailView(artist: artist)) {
                             ArtistCardView(artist: artist)
                         }
+                        .navigationBarTitleDisplayMode(.inline)
                     }
                 }
                 .padding(.horizontal)
