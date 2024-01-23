@@ -13,31 +13,48 @@ struct AlbumDetailView: View {
     
     var body: some View {
         NavigationStack {
-            AsyncImage(url: album.artworkUrl100) { parse in
-                switch parse {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
-                    default:
-                        Rectangle()
-                }
+            albumCover
+            albumHeader
+            trackList
+            albumDescription
+        }
+    }
+    
+    var albumCover: some View {
+        AsyncImage(url: album.artworkUrl100) { parse in
+            switch parse {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                default:
+                    Rectangle()
             }
-            .aspectRatio(1, contentMode: .fit)
-            .frame(maxWidth: 240)
-            
+        }
+        .frame(maxWidth: 240)
+        .aspectRatio(1, contentMode: .fit)
+    }
+    
+    var albumHeader: some View {
+        VStack {
             Text(album.collectionName)
             Text(album.artistName)
             Text("\(album.primaryGenreName)．\(String(getReleaseDate(releaseDate:album.releaseDate).prefix(4)))")
-            
-            List(0..<tracks.count, id: \.self) { index in
-                HStack {
-                    Text(String(format: "%2d", index+1))
-                    Text("\(tracks[index].trackName)")
-                }
+        }
+    }
+    
+    var trackList: some View {
+        List(0..<tracks.count, id: \.self) { index in
+            HStack {
+                Text(String(format: "%2d", index+1))
+                Text("\(tracks[index].trackName)")
             }
-            .listStyle(.plain)
-            
+        }
+        .listStyle(.plain)
+    }
+    
+    var albumDescription: some View {
+        VStack {
             Text(getReleaseDate(releaseDate:album.releaseDate))
             Text("\(album.trackCount) songs")
             Text(album.copyright)
