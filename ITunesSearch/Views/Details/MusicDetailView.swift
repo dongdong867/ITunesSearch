@@ -29,6 +29,7 @@ struct MusicDetailView: View {
             Spacer()
         }
         .padding(.horizontal, 40)
+        .padding(.vertical)
     }
     
     var albumCover: some View {
@@ -53,10 +54,19 @@ struct MusicDetailView: View {
             Text(music.trackName)
                 .font(.title3)
                 .fontWeight(.bold)
-            Text(music.artistName)
-                .font(.title3)
-                .fontWeight(.medium)
-                .foregroundStyle(.red)
+            NavigationLink {
+                ArtistDetailView(artist: Artist(
+                    artistLinkUrl: music.artistViewUrl,
+                    artistName: music.artistName,
+                    artistId: music.artistId
+                ))
+                .navigationBarTitleDisplayMode(.inline)
+            } label: {
+                Text(music.artistName)
+                    .font(.title3)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.red)
+            }
         }
         .padding(.vertical)
     }

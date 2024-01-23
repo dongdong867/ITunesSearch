@@ -18,6 +18,7 @@ struct MusicSearchView: View {
                 List(musicSearch.result) { music in
                     NavigationLink(destination: MusicDetailView(music: music)) {
                         MusicCardView(music: music)
+                            .navigationBarTitleDisplayMode(.inline)
                     }
                 }
                 .navigationTitle("Music")
