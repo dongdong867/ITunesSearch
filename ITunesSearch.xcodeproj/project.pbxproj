@@ -36,6 +36,7 @@
 		F52375022B5E72EE0017925B /* ArtistDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52375012B5E72EE0017925B /* ArtistDetail.swift */; };
 		F52375042B5E73040017925B /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52375032B5E73040017925B /* ArtistDetailView.swift */; };
 		F568F5642B5F0F7D00A991F5 /* LookupResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F568F5632B5F0F7D00A991F5 /* LookupResponse.swift */; };
+		F568F5672B5FFEE200A991F5 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F568F5662B5FFEE200A991F5 /* AlbumDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		F52375012B5E72EE0017925B /* ArtistDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetail.swift; sourceTree = "<group>"; };
 		F52375032B5E73040017925B /* ArtistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailView.swift; sourceTree = "<group>"; };
 		F568F5632B5F0F7D00A991F5 /* LookupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupResponse.swift; sourceTree = "<group>"; };
+		F568F5662B5FFEE200A991F5 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 		F52374F22B5706450017925B /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				F568F5652B5FFEC900A991F5 /* AlbumDetail */,
 				F52375002B5E72D30017925B /* ArtistDetail */,
 				F52374F42B5706A80017925B /* MusicDetailView.swift */,
 			);
@@ -243,6 +246,14 @@
 				F52375032B5E73040017925B /* ArtistDetailView.swift */,
 			);
 			path = ArtistDetail;
+			sourceTree = "<group>";
+		};
+		F568F5652B5FFEC900A991F5 /* AlbumDetail */ = {
+			isa = PBXGroup;
+			children = (
+				F568F5662B5FFEE200A991F5 /* AlbumDetailView.swift */,
+			);
+			path = AlbumDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,6 +354,7 @@
 				F568F5642B5F0F7D00A991F5 /* LookupResponse.swift in Sources */,
 				F52374C02B506BDB0017925B /* MusicCardView.swift in Sources */,
 				F52374F52B5706A80017925B /* MusicDetailView.swift in Sources */,
+				F568F5672B5FFEE200A991F5 /* AlbumDetailView.swift in Sources */,
 				F52374CF2B5431A60017925B /* SearchResponse.swift in Sources */,
 				F52374E32B55B7250017925B /* Search.swift in Sources */,
 				F52374A12B5031520017925B /* ITunesSearchApp.swift in Sources */,
