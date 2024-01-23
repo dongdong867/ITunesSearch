@@ -8,15 +8,23 @@
 import SwiftUI
 
 struct AlbumDetailView: View {
+    
     let album: Album
-    let tracks: [Music]
+    @ObservedObject var albumDetail: AlbumDetail
+    
+    init(album: Album) {
+        self.album = album
+        self.albumDetail = AlbumDetail(albumId: album.artistId)
+    }
     
     var body: some View {
-        NavigationStack {
-            albumCover
-            albumHeader
-            trackList
-            albumDescription
+        ScrollView {
+            VStack {
+                albumCover
+                albumHeader
+                trackList
+                albumDescription
+            }
         }
     }
     
@@ -65,14 +73,32 @@ struct AlbumDetailView: View {
     }
     
     var trackList: some View {
-        List(0..<tracks.count, id: \.self) { index in
-            HStack {
-                Text(String(format: "%2d", index+1))
-                    .foregroundStyle(.gray)
-                Text("\(tracks[index].trackName)")
+        LazyVStack(alignment: .leading) {
+            Divider()
+            
+            ForEach(0..<albumDetail.tracks.count, id: \.self) { index in
+                NavigationLink {
+                    MusicDetailView(music: albumDetail.tracks[index])
+                } label: {
+                    HStack {
+                        Text(String(format: "%2d", index+1))
+                            .foregroundStyle(.gray)
+                        
+                        Text("\(albumDetail.tracks[index].trackName)")
+                            .tint(.primary)
+                    }
+                    .lineLimit(1)
+                    .padding(.vertical, 4)
+                }
+                
+                
+                
+                
+                Divider()
             }
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
+        .padding()
     }
     
     var albumDescription: some View {
@@ -91,5 +117,5 @@ struct AlbumDetailView: View {
 }
 
 #Preview {
-    AlbumDetailView(album: Album.sampleData, tracks: Music.sampleList)
+    AlbumDetailView(album: Album.sampleData)
 }
