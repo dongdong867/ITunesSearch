@@ -33,6 +33,9 @@
 		F52374F82B5829D40017925B /* ProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52374F72B5829D40017925B /* ProgressSlider.swift */; };
 		F52374FA2B59A8320017925B /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52374F92B59A8320017925B /* MusicPlayer.swift */; };
 		F52374FC2B5B28970017925B /* MusicPlayerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52374FB2B5B28970017925B /* MusicPlayerError.swift */; };
+		F52375022B5E72EE0017925B /* ArtistDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52375012B5E72EE0017925B /* ArtistDetail.swift */; };
+		F52375042B5E73040017925B /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52375032B5E73040017925B /* ArtistDetailView.swift */; };
+		F568F5642B5F0F7D00A991F5 /* LookupResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F568F5632B5F0F7D00A991F5 /* LookupResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +65,9 @@
 		F52374F72B5829D40017925B /* ProgressSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSlider.swift; sourceTree = "<group>"; };
 		F52374F92B59A8320017925B /* MusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
 		F52374FB2B5B28970017925B /* MusicPlayerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerError.swift; sourceTree = "<group>"; };
+		F52375012B5E72EE0017925B /* ArtistDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetail.swift; sourceTree = "<group>"; };
+		F52375032B5E73040017925B /* ArtistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailView.swift; sourceTree = "<group>"; };
+		F568F5632B5F0F7D00A991F5 /* LookupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				F52374CE2B5431A60017925B /* SearchResponse.swift */,
+				F568F5632B5F0F7D00A991F5 /* LookupResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -215,6 +222,7 @@
 		F52374F22B5706450017925B /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				F52375002B5E72D30017925B /* ArtistDetail */,
 				F52374F42B5706A80017925B /* MusicDetailView.swift */,
 			);
 			path = Details;
@@ -226,6 +234,15 @@
 				F52374F72B5829D40017925B /* ProgressSlider.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		F52375002B5E72D30017925B /* ArtistDetail */ = {
+			isa = PBXGroup;
+			children = (
+				F52375012B5E72EE0017925B /* ArtistDetail.swift */,
+				F52375032B5E73040017925B /* ArtistDetailView.swift */,
+			);
+			path = ArtistDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,12 +322,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F52374FA2B59A8320017925B /* MusicPlayer.swift in Sources */,
+				F52375042B5E73040017925B /* ArtistDetailView.swift in Sources */,
 				F52374F82B5829D40017925B /* ProgressSlider.swift in Sources */,
 				F52374CA2B53D7130017925B /* ApiError.swift in Sources */,
 				F52374E82B55CBD70017925B /* ArtistSearchView.swift in Sources */,
 				F52374B32B505F220017925B /* SearchView.swift in Sources */,
 				F52374DC2B5574130017925B /* AlbumSearchView.swift in Sources */,
 				F52374C72B53B2620017925B /* MusicSearch.swift in Sources */,
+				F52375022B5E72EE0017925B /* ArtistDetail.swift in Sources */,
 				F52374D72B54838B0017925B /* ReleaseDate.swift in Sources */,
 				F52374FC2B5B28970017925B /* MusicPlayerError.swift in Sources */,
 				F52374D92B548E7A0017925B /* AlbumCardView.swift in Sources */,
@@ -321,6 +340,7 @@
 				F52374EA2B55CBE80017925B /* ArtistCardView.swift in Sources */,
 				F52374E62B55CBCB0017925B /* ArtistSearch.swift in Sources */,
 				F52374EC2B55CC5B0017925B /* Artist.swift in Sources */,
+				F568F5642B5F0F7D00A991F5 /* LookupResponse.swift in Sources */,
 				F52374C02B506BDB0017925B /* MusicCardView.swift in Sources */,
 				F52374F52B5706A80017925B /* MusicDetailView.swift in Sources */,
 				F52374CF2B5431A60017925B /* SearchResponse.swift in Sources */,
