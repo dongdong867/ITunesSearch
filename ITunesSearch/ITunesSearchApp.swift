@@ -2,7 +2,7 @@
 //  ITunesSearchApp.swift
 //  ITunesSearch
 //
-//  Created by 東東 on 2024/1/11.
+//  Created by Dong on 2024/1/11.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import SwiftUI
 struct ITunesSearchApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SearchView()
         }
     }
 }
