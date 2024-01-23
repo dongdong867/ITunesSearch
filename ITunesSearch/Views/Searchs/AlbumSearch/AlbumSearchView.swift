@@ -16,7 +16,7 @@ struct AlbumSearchView: View {
             ScrollView {
                 LazyVGrid(columns: [GridItem(spacing: 20), GridItem()]) {
                     ForEach(albumSearch.result) { album in
-                        NavigationLink(destination: Text(album.collectionName)) {
+                        NavigationLink(destination: AlbumDetailView(album: album)) {
                             AlbumCardView(album: album)
                         }
                     }
