@@ -9,12 +9,16 @@ import SwiftUI
 
 struct ArtistDetailView: View {
     let artist: Artist
-    let tracks: [Music] = Music.sampleList
-    let albums: [Album] = Album.sampleList
+    @ObservedObject var artistDetail: ArtistDetail
     
-    @State var defaultImageHeight: CGFloat = .zero
     @State var avatar: URL?
     @State var scrollOffset: CGFloat = .zero
+    @State var defaultImageHeight: CGFloat = .zero
+    
+    init(artist: Artist) {
+        self.artist = artist
+        self.artistDetail = ArtistDetail(artistId: artist.artistId)
+    }
     
     var body: some View {
         ScrollView {
@@ -30,14 +34,20 @@ struct ArtistDetailView: View {
         }
     }
     
-    
     var artistContent: some View {
         VStack(alignment: .leading) {
             Text("\(artist.artistName)")
                 .font(.title)
                 .fontWeight(.bold)
-            allSongs
-            allAlbums
+            if (artistDetail.getState() == "good") {
+                Group {
+                    allSongs
+                    allAlbums
+                }
+            } else {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
@@ -46,7 +56,7 @@ struct ArtistDetailView: View {
     var allSongs: some View {
         Section {
             VStack(spacing: 14) {
-                ForEach(tracks[0...min(3, tracks.count - 1)]) { track in
+                ForEach(artistDetail.musics[0...min(3, artistDetail.musics.count - 1)]) { track in
                     MusicCardView(music: track)
                 }
             }
@@ -66,7 +76,7 @@ struct ArtistDetailView: View {
         Section {
             ScrollView(.horizontal) {
                 HStack(spacing: 14) {
-                    ForEach(albums) { album in
+                    ForEach(artistDetail.albums) { album in
                         AlbumCardView(album: album)
                             .frame(width: 150)
                     }
